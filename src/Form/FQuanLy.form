@@ -63,6 +63,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; kh&#xe1;ch h&#xe0;ng"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btQLKHActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btQLDH">
       <Properties>
@@ -84,6 +87,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; nh&#xe2;n vi&#xea;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btQLNVActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btThoat">
       <Properties>

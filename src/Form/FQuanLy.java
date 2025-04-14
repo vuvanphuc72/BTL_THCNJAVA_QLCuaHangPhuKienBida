@@ -41,6 +41,11 @@ public class FQuanLy extends javax.swing.JFrame {
         setTitle("Quản lý cửa hàng phụ kiện Bida Vip Pro");
 
         btQLKH.setText("Quản lý khách hàng");
+        btQLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btQLKHActionPerformed(evt);
+            }
+        });
 
         btQLDH.setText("Quản lý đơn hàng");
         btQLDH.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +62,11 @@ public class FQuanLy extends javax.swing.JFrame {
         });
 
         btQLNV.setText("Quản lý nhân viên");
+        btQLNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btQLNVActionPerformed(evt);
+            }
+        });
 
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +128,18 @@ public class FQuanLy extends javax.swing.JFrame {
         fQLSanPham fql = new fQLSanPham(this);
         fql.setVisible(true);
     }//GEN-LAST:event_btQLSPActionPerformed
+
+    private void btQLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQLKHActionPerformed
+        this.setVisible(false);
+        fQLKhachHang fql = new fQLKhachHang(this);
+        fql.setVisible(true);
+    }//GEN-LAST:event_btQLKHActionPerformed
+
+    private void btQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQLNVActionPerformed
+        this.setVisible(false);
+        QLNhanVien fql = new QLNhanVien(this);
+        fql.setVisible(true);
+    }//GEN-LAST:event_btQLNVActionPerformed
 
 
     public static void main(String args[]) {
