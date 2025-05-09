@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class fQLKhachHang extends javax.swing.JFrame {
@@ -113,12 +114,32 @@ public class fQLKhachHang extends javax.swing.JFrame {
         jLabel5.setText("Địa chỉ");
 
         btThem.setText("Thêm");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
 
         btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaActionPerformed(evt);
+            }
+        });
 
         btXoa.setText("Xoá");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
 
         btTimKiem.setText("Tìm kiêm theo");
+        btTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimKiemActionPerformed(evt);
+            }
+        });
 
         cbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khách hàng", "Tên khách hàng", "Số điện thoại" }));
 
@@ -214,6 +235,79 @@ public class fQLKhachHang extends javax.swing.JFrame {
             clearTF();
         }
     }//GEN-LAST:event_tbKhachHangMouseClicked
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        String hoten = tfHoTen.getText();
+        String sdt = tfSDT.getText();
+        String email = tfEmail.getText();
+        String diaChi = tfDiaChi.getText();
+        
+        try {
+            Connector pt = new Connector();
+            int maKH = -1;
+            String sqlKH = "SELECT MaKhachHang FROM khachhang WHERE SoDienThoai = '"+sdt+"';";
+            ResultSet rs = pt.getDataBySQL(sqlKH);
+            while(rs.next()){
+                maKH = Integer.parseInt(rs.getString("MaKhachHang"));
+            }
+            if(maKH != -1){
+                JOptionPane.showMessageDialog(null, "Khách hàng với sdt này đã tồn tại!");
+                return;
+            } 
+            String sql = "INSERT INTO `khachhang`(`HoTen`, `SoDienThoai`, `Email`, `DiaChi`) VALUES ('"+hoten+"','"+sdt+"','"+email+"','"+diaChi+"')";
+            pt.updateQuery(sql);
+            JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công!");
+            loadKhachHang();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btThemActionPerformed
+
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
+        String hoten = tfHoTen.getText();
+        String sdt = tfSDT.getText();
+        String email = tfEmail.getText();
+        String diaChi = tfDiaChi.getText();
+        try {
+            Connector pt = new Connector();
+            int i = tbKhachHang.getSelectedRow();
+            if(tbKhachHang.getValueAt(i,0) != null && !tbKhachHang.getValueAt(i,0).toString().equals("")){
+                String sdtTruoc = tbKhachHang.getValueAt(i, 2).toString();
+                int maKH = -1;
+                String sqlKH = "SELECT MaKhachHang FROM khachhang WHERE SoDienThoai = '"+sdtTruoc+"';";
+                ResultSet rs = pt.getDataBySQL(sqlKH);
+                while(rs.next()){
+                    maKH = Integer.parseInt(rs.getString("MaKhachHang"));
+                }
+                if(maKH != -1){
+                    String sql = "UPDATE `khachhang` SET `HoTen`='"+hoten+"',`SoDienThoai`='"+sdt+"',`Email`='"+email+"',`DiaChi`='"+diaChi+"' WHERE `MaKhachHang`= "+maKH+"";
+                    pt.updateQuery(sql);
+                    JOptionPane.showMessageDialog(null, "Sửa khách hàng thành công!");
+                    loadKhachHang();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần sửa thông tin!");
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btSuaActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        int i = tbKhachHang.getSelectedRow();
+        if(tbKhachHang.getValueAt(i,0) != null && !tbKhachHang.getValueAt(i,0).toString().equals("")){
+            String sdtTruoc = tbKhachHang.getValueAt(i, 2).toString();
+        }
+    }//GEN-LAST:event_btXoaActionPerformed
+
+    private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
+       
+    }//GEN-LAST:event_btTimKiemActionPerformed
 
     public void clearTF(){
         tfHoTen.setText("");

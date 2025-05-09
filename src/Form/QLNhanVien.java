@@ -1,6 +1,7 @@
 
 package Form;
 
+import java.util.Date;
 import Model.Connector;
 import java.sql.*;
 import java.text.ParseException;
@@ -8,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 
 public class QLNhanVien extends javax.swing.JFrame {
@@ -158,8 +162,18 @@ public class QLNhanVien extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbNhanVien);
 
         btThemNV.setText("Thêm");
+        btThemNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemNVActionPerformed(evt);
+            }
+        });
 
         btSuaNV.setText("Sửa");
+        btSuaNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaNVActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel7.setText("QUẢN LÝ NHÂN VIÊN");
@@ -283,29 +297,97 @@ public class QLNhanVien extends javax.swing.JFrame {
             tfHoTenNV.setText(tbNhanVien.getValueAt(i, 1).toString());
             tfSDTNV.setText(tbNhanVien.getValueAt(i, 2).toString());
             tfEmailNV.setText(tbNhanVien.getValueAt(i, 3).toString());
-            Object ngayDat = tbNhanVien.getValueAt(i, 4);
-           if(ngayDat instanceof String){
-//               try {
-//                    String ngayStr = ((String) ngayDat).trim();
-//                    String[] parts = ngayStr.split("-");
-//                    if (parts.length == 3) {
-//                        String year = parts[0];
-//                        String month = (parts[1].length() == 1) ? "0" + parts[1] : parts[1];
-//                        String day = (parts[2].length() == 1) ? "0" + parts[2] : parts[2];
-//                        ngayStr = year + "-" + month + "-" + day;
-//                    }
-////
-//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                    ngayDat = sdf.parse(ngayStr);
-//                } catch (ParseException ex) {
-//                    ex.printStackTrace();
-//                return;
+            String ngayDat = tbNhanVien.getValueAt(i, 4).toString();
+            
+            SpinnerDateModel model = new SpinnerDateModel();
+            spdNgayTuyenDung.setModel(model);
+            JSpinner.DateEditor edit = new JSpinner.DateEditor(spdNgayTuyenDung, "yyyy-MM-dd");
+            spdNgayTuyenDung.setEditor(edit);
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date utilDate;
+            try {
+                utilDate = sdf.parse(ngayDat);
+                spdNgayTuyenDung.setValue(utilDate);
+            } catch (ParseException ex) {
+                Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
             }
-            spdNgayTuyenDung.setValue(ngayDat);
+
         }else{
             clearTF();
         }
     }//GEN-LAST:event_tbNhanVienMouseClicked
+
+    private void btThemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemNVActionPerformed
+        String hoTen = tfHoTenNV.getText();
+        String sdt = tfSDTNV.getText();
+        String email = tfHoTenNV.getText();
+        
+        Object value = spdNgayTuyenDung.getValue();
+        java.util.Date utilDate = (Date) value;
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        String ngayDat = sqlDate.toString();
+        
+        try {
+            Connector pt = new Connector();
+            int maNV = -1;
+            String sqlNV = "SELECT MaNhanVien FROM NhanVien WHERE SoDienThoai = '"+sdt+"';";
+            ResultSet rs = pt.getDataBySQL(sqlNV);
+            while(rs.next()){
+                maNV = Integer.parseInt(rs.getString("MaNhanVien"));
+            }
+            if(maNV != -1){
+                JOptionPane.showMessageDialog(null, "Nhân viên với sdt này đã tồn tại!");
+                return;
+            } 
+            String sql = "INSERT INTO `nhanvien`(`HoTen`, `SoDienThoai`, `Email`, `NgayTuyenDung`) VALUES ('"+hoTen+"','"+sdt+"','"+email+"','"+ngayDat+"')";
+            pt.updateQuery(sql);
+            JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!");
+            loadNhanVien();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btThemNVActionPerformed
+
+    private void btSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaNVActionPerformed
+        String hoTen = tfHoTenNV.getText();
+        String sdt = tfSDTNV.getText();
+        String email = tfHoTenNV.getText();
+        
+        Object value = spdNgayTuyenDung.getValue();
+        java.util.Date utilDate = (Date) value;
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        String ngayDat = sqlDate.toString();
+        
+        try {
+            Connector pt = new Connector();
+            int i = tbNhanVien.getSelectedRow();
+            if(tbNhanVien.getValueAt(i,0) != null && !tbNhanVien.getValueAt(i,0).toString().equals("")){
+                String sdtTruoc = tbNhanVien.getValueAt(i, 2).toString();
+                int maNV = -1;
+                String sqlNV = "SELECT MaNhanVien FROM nhanvien WHERE SoDienThoai = '"+sdtTruoc+"';";
+                ResultSet rs = pt.getDataBySQL(sqlNV);
+                while(rs.next()){
+                    maNV = Integer.parseInt(rs.getString("MaNhanVien"));
+                }
+                if(maNV != -1){
+                    String sql = "UPDATE `nhanvien` SET `HoTen`='"+hoTen+"',`SoDienThoai`='"+sdt+"',`Email`='"+email+"',`NgayTuyenDung`='"+ngayDat+"' WHERE `MaNhanVien`= "+maNV+"";
+                    pt.updateQuery(sql);
+                    JOptionPane.showMessageDialog(null, "Sửa nhân viên thành công!");
+                    loadNhanVien();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần sửa thông tin!");
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btSuaNVActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

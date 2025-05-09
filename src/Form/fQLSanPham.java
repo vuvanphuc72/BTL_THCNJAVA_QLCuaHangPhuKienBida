@@ -143,6 +143,11 @@ public class fQLSanPham extends javax.swing.JFrame {
         });
 
         btXoa.setText("Xoá");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
 
         btSua.setText("Sửa");
         btSua.addActionListener(new java.awt.event.ActionListener() {
@@ -319,6 +324,10 @@ public class fQLSanPham extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btSuaActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btXoaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
