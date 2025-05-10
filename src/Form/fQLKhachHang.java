@@ -141,7 +141,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
             }
         });
 
-        cbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khách hàng", "Tên khách hàng", "Số điện thoại" }));
+        cbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên khách hàng", "Số điện thoại", "Email" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,7 +306,45 @@ public class fQLKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
-       
+        DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
+        model.setRowCount(0);
+        model.setRowCount(50);
+        String ma = "1";
+        if (cbTimKiem.getSelectedIndex() == 0){
+            ma = "HoTen LIKE '%" + tfTimKiem.getText() + "%'"; 
+        }
+        else if(cbTimKiem.getSelectedIndex() == 1){
+            ma = "SoDienThoai LIKE '%" + tfTimKiem.getText() + "%'"; 
+        }
+        else{
+            ma = "Email LIKE '%" + tfTimKiem.getText() + "%'";
+        }
+        
+        try {
+            Connector pt = new Connector();
+            ResultSet rs = null;
+            if(tfTimKiem.getText().equals("")){
+                rs = pt.getData("khachhang");                
+            }
+            else{
+//                JOptionPane.showMessageDialog(null, ma);
+                rs = pt.getDataBySQL("select * from khachhang where " + ma);
+            }
+            int dem = 0;
+            while(rs.next()){
+                tbKhachHang.setValueAt(rs.getString("MaKhachHang"), dem, 0);
+                tbKhachHang.setValueAt(rs.getString("HoTen"), dem, 1);
+                tbKhachHang.setValueAt(rs.getString("SoDienThoai"), dem, 2);
+                tbKhachHang.setValueAt(rs.getString("Email"), dem, 3);
+                tbKhachHang.setValueAt(rs.getString("DiaChi"), dem, 4);
+                dem++;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btTimKiemActionPerformed
 
     public void clearTF(){

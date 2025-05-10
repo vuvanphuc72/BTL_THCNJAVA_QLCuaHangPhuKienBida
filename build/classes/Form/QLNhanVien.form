@@ -318,6 +318,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xec;m ki&#xea;m theo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btTimKiemNVActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfHoTenNV">
     </Component>
@@ -325,9 +328,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="M&#xe3; kh&#xe1;ch h&#xe0;ng"/>
-            <StringItem index="1" value="T&#xea;n kh&#xe1;ch h&#xe0;ng"/>
-            <StringItem index="2" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+            <StringItem index="0" value="T&#xea;n nh&#xe2;n vi&#xea;n"/>
+            <StringItem index="1" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+            <StringItem index="2" value="Email"/>
           </StringArray>
         </Property>
       </Properties>
