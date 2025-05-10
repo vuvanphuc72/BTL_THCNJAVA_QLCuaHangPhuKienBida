@@ -157,12 +157,22 @@ public class fQLSanPham extends javax.swing.JFrame {
         });
 
         btTimKiem.setText("Tìm kiếm theo");
+        btTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimKiemActionPerformed(evt);
+            }
+        });
 
         cbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên sản phẩm", "Loại sản phẩm" }));
 
         btThemLSP.setText("Thêm loại SP");
 
         btThoat.setText("Thoát");
+        btThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThoatActionPerformed(evt);
+            }
+        });
 
         btXoaLSP.setText("Xoá loại SP");
 
@@ -328,6 +338,47 @@ public class fQLSanPham extends javax.swing.JFrame {
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btXoaActionPerformed
+
+    private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
+        
+    }//GEN-LAST:event_btThoatActionPerformed
+
+    private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tbSanPham.getModel();
+        model.setRowCount(0);
+        model.setRowCount(50);
+        String ma = "1";
+        if (cbTimKiem.getSelectedIndex() == 0){
+            ma = "sanpham.TenSanPham LIKE '%" + tfTimKiem.getText() + "%'"; 
+        }
+        else if(cbTimKiem.getSelectedIndex() == 1){
+            ma = "loaisanpham.TenLoaiSanPham LIKE '%" + tfTimKiem.getText() + "%'"; 
+        }
+        
+        try {
+            Connector pt = new Connector();
+            ResultSet rs = null;
+            String sql = "SELECT sanpham.MaSanPham, sanpham.TenSanPham, sanpham.GiaDonVi, loaisanpham.TenLoaiSanPham FROM sanpham JOIN loaisanpham ON sanpham.MaLoaiSanPham = loaisanpham.MaLoaiSanPham ";
+            if(tfTimKiem.getText().equals("")){
+                rs = pt.getDataBySQL(sql);                
+            }
+            else{
+                rs = pt.getDataBySQL(sql + " where " + ma);
+            }
+            int dem = 0;
+            while(rs.next()){
+                tbSanPham.setValueAt(rs.getString("MaSanPham"), dem, 0);
+                tbSanPham.setValueAt(rs.getString("TenSanPham"), dem, 1);
+                tbSanPham.setValueAt(rs.getString("GiaDonVi"), dem, 2);
+                tbSanPham.setValueAt(rs.getString("TenLoaiSanPham"), dem, 3);
+                dem++;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btTimKiemActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

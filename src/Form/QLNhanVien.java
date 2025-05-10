@@ -183,8 +183,13 @@ public class QLNhanVien extends javax.swing.JFrame {
         jLabel8.setText("Họ tên");
 
         btTimKiemNV.setText("Tìm kiêm theo");
+        btTimKiemNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimKiemNVActionPerformed(evt);
+            }
+        });
 
-        cbTimKiemNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khách hàng", "Tên khách hàng", "Số điện thoại" }));
+        cbTimKiemNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên nhân viên", "Số điện thoại", "Email" }));
 
         jLabel9.setText("Số điện thoại");
 
@@ -388,6 +393,47 @@ public class QLNhanVien extends javax.swing.JFrame {
             Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btSuaNVActionPerformed
+
+    private void btTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemNVActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
+        model.setRowCount(0);
+        model.setRowCount(50);
+        String ma = "1";
+        if (cbTimKiemNhanVien.getSelectedIndex() == 0){
+            ma = "HoTen LIKE '%" + tfTimKiemNhanVien.getText() + "%'"; 
+        }
+        else if(cbTimKiemNhanVien.getSelectedIndex() == 1){
+            ma = "SoDienThoai LIKE '%" + tfTimKiemNhanVien.getText() + "%'"; 
+        }
+        else{
+            ma = "Email LIKE '%" + tfTimKiemNhanVien.getText() + "%'";
+        }
+        
+        try {
+            Connector pt = new Connector();
+            ResultSet rs = null;
+            if(tfTimKiemNhanVien.getText().equals("")){
+                rs = pt.getData("nhanvien");                
+            }
+            else{
+//                JOptionPane.showMessageDialog(null, ma);
+                rs = pt.getDataBySQL("select * from nhanvien where " + ma);
+            }
+            int dem = 0;
+            while(rs.next()){
+                tbNhanVien.setValueAt(rs.getString("MaNhanVien"), dem, 0);
+                tbNhanVien.setValueAt(rs.getString("HoTen"), dem, 1);
+                tbNhanVien.setValueAt(rs.getString("SoDienThoai"), dem, 2);
+                tbNhanVien.setValueAt(rs.getString("Email"), dem, 3);
+                tbNhanVien.setValueAt(rs.getString("NgayTuyenDung"), dem, 4);
+                dem++;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btTimKiemNVActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
