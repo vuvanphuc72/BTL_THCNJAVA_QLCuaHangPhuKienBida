@@ -17,6 +17,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
     public fTaoDonHang() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loadSanPham("sanpham");
     }
     
