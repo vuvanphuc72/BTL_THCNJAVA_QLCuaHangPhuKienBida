@@ -52,6 +52,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                 tbNhanVien.setValueAt(rs.getString("SoDienThoai"), dem, 2);
                 tbNhanVien.setValueAt(rs.getString("Email"), dem, 3);
                 tbNhanVien.setValueAt(rs.getString("NgayTuyenDung"), dem, 4);
+                tbNhanVien.setValueAt(rs.getString("matkhau"), dem, 5);
                 dem++;
             }
         } catch (ClassNotFoundException ex) {
@@ -100,6 +101,8 @@ public class QLNhanVien extends javax.swing.JFrame {
         btXoaNV = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btTimKiemNV = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        tfMatKhau = new javax.swing.JTextField();
 
         jLabel5.setText("Địa chỉ");
 
@@ -151,17 +154,17 @@ public class QLNhanVien extends javax.swing.JFrame {
 
         jLabel6.setText("Ngày tuyển dụng");
 
-        jLabel9.setText("Số điện thoại");
+        jLabel9.setText("Số điện thoại (TK)");
 
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã khách hàng", "Họ tên", "Số điện thoại", "Email", "Ngày tuyển dụng"
+                "Mã khách hàng", "Họ tên", "Số điện thoại", "Email", "Ngày tuyển dụng", "Mật khẩu"
             }
         ));
         tbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,6 +204,8 @@ public class QLNhanVien extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Mật khẩu");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -211,18 +216,23 @@ public class QLNhanVien extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfSDTNV)
                             .addComponent(tfEmailNV)
-                            .addComponent(spdNgayTuyenDung)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(tfHoTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(spdNgayTuyenDung, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfMatKhau)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -267,7 +277,9 @@ public class QLNhanVien extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(spdNgayTuyenDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spdNgayTuyenDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(tfMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addContainerGap())
@@ -339,6 +351,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                 tbNhanVien.setValueAt(rs.getString("SoDienThoai"), dem, 2);
                 tbNhanVien.setValueAt(rs.getString("Email"), dem, 3);
                 tbNhanVien.setValueAt(rs.getString("NgayTuyenDung"), dem, 4);
+                tbNhanVien.setValueAt(rs.getString("matkhau"), dem, 5);
                 dem++;
             }
         } catch (ClassNotFoundException ex) {
@@ -352,6 +365,7 @@ public class QLNhanVien extends javax.swing.JFrame {
         String hoTen = tfHoTenNV.getText();
         String sdt = tfSDTNV.getText();
         String email = tfHoTenNV.getText();
+        String mk = tfMatKhau.getText();
 
         Object value = spdNgayTuyenDung.getValue();
         java.util.Date utilDate = (Date) value;
@@ -370,7 +384,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                     maNV = Integer.parseInt(rs.getString("MaNhanVien"));
                 }
                 if(maNV != -1){
-                    String sql = "UPDATE `nhanvien` SET `HoTen`='"+hoTen+"',`SoDienThoai`='"+sdt+"',`Email`='"+email+"',`NgayTuyenDung`='"+ngayDat+"' WHERE `MaNhanVien`= "+maNV+"";
+                    String sql = "UPDATE `nhanvien` SET `HoTen`='"+hoTen+"',`SoDienThoai`='"+sdt+"',`Email`='"+email+"',`NgayTuyenDung`='"+ngayDat+"', `matkhau`='"+mk+"' WHERE `MaNhanVien`= "+maNV+"";
                     pt.updateQuery(sql);
                     JOptionPane.showMessageDialog(null, "Sửa nhân viên thành công!");
                     loadNhanVien();
@@ -389,6 +403,7 @@ public class QLNhanVien extends javax.swing.JFrame {
         String hoTen = tfHoTenNV.getText();
         String sdt = tfSDTNV.getText();
         String email = tfHoTenNV.getText();
+        String mk = tfMatKhau.getText();
 
         Object value = spdNgayTuyenDung.getValue();
         java.util.Date utilDate = (Date) value;
@@ -407,7 +422,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nhân viên với sdt này đã tồn tại!");
                 return;
             }
-            String sql = "INSERT INTO `nhanvien`(`HoTen`, `SoDienThoai`, `Email`, `NgayTuyenDung`) VALUES ('"+hoTen+"','"+sdt+"','"+email+"','"+ngayDat+"')";
+            String sql = "INSERT INTO `nhanvien`(`HoTen`, `SoDienThoai`, `Email`, `NgayTuyenDung`, `matkhau`) VALUES ('"+hoTen+"','"+sdt+"','"+email+"','"+ngayDat+"','"+mk+"')";
             pt.updateQuery(sql);
             JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!");
             loadNhanVien();
@@ -425,6 +440,7 @@ public class QLNhanVien extends javax.swing.JFrame {
             tfHoTenNV.setText(tbNhanVien.getValueAt(i, 1).toString());
             tfSDTNV.setText(tbNhanVien.getValueAt(i, 2).toString());
             tfEmailNV.setText(tbNhanVien.getValueAt(i, 3).toString());
+            tfMatKhau.setText(tbNhanVien.getValueAt(i, 5).toString());
             String ngayDat = tbNhanVien.getValueAt(i, 4).toString();
 
             SpinnerDateModel model = new SpinnerDateModel();
@@ -440,7 +456,7 @@ public class QLNhanVien extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }else{
             clearTF();
         }
@@ -450,6 +466,7 @@ public class QLNhanVien extends javax.swing.JFrame {
         tfHoTenNV.setText("");
         tfSDTNV.setText("");
         tfEmailNV.setText("");
+        tfMatKhau.setText("");
     }
     
     public static void main(String args[]) {
@@ -497,6 +514,7 @@ public class QLNhanVien extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTimKiemNhanVien;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -516,6 +534,7 @@ public class QLNhanVien extends javax.swing.JFrame {
     private javax.swing.JTextField tfEmailNV;
     private javax.swing.JTextField tfHoTen;
     private javax.swing.JTextField tfHoTenNV;
+    private javax.swing.JTextField tfMatKhau;
     private javax.swing.JTextField tfSDT;
     private javax.swing.JTextField tfSDTNV;
     private javax.swing.JTextField tfTimKiem;

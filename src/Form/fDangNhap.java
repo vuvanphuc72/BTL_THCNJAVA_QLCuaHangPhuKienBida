@@ -1,6 +1,11 @@
 
 package Form;
 
+import Model.Connector;
+import java.sql.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class fDangNhap extends javax.swing.JFrame {
@@ -25,7 +30,7 @@ public class fDangNhap extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
 
-        jLabel1.setText("Tài khoản");
+        jLabel1.setText("Tài khoản (SDT)");
 
         jLabel2.setText("Mật khẩu");
 
@@ -99,9 +104,33 @@ public class fDangNhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btThoatActionPerformed
 
+    public boolean check(){
+        String tk = tfTaiKhoan.getText();
+        String mk = tfMatKhau.getText();
+        try {
+            Connector pt = new Connector();
+            String sql = "select * from nhanvien where SoDienThoai = '"+tk+"' and matkhau = '"+mk+"'";
+            ResultSet rs = pt.getDataBySQL(sql);
+            if(rs.next()){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fDangNhap.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fDangNhap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     private void btDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDangNhapActionPerformed
+        if(!check()){
+            JOptionPane.showMessageDialog(null, "Tài khoản/mật khẩu nhân viên không đúng!");
+            return;
+        }
         this.setVisible(false);
-        FQuanLy fql = new FQuanLy(this);
+        QuanLyCuaHang2 fql = new QuanLyCuaHang2();
         fql.setVisible(true);
     }//GEN-LAST:event_btDangNhapActionPerformed
 

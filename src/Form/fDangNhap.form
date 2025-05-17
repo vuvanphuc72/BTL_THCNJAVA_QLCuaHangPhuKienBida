@@ -77,7 +77,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
+        <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n (SDT)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
