@@ -8,7 +8,7 @@ public class DonHangConnect {
     
     public DonHangConnect() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qlpkbida", "root", "");
+        this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qlphukienbidastore", "root", "");
     }
     
     public ResultSet getData(String tenBang) throws SQLException{
@@ -22,7 +22,7 @@ public class DonHangConnect {
     public ResultSet getData() throws SQLException{
         ResultSet rs = null;
         Statement st = con.createStatement();
-        String sql = "select * from donhang";
+        String sql = "select * from hoadon";
         rs = st.executeQuery(sql);
         return rs;
     }
@@ -30,9 +30,9 @@ public class DonHangConnect {
     public ResultSet getDataCTDH(String maDonHang) throws SQLException{
         ResultSet rs = null;
         Statement st = con.createStatement();
-        String sql = "SELECT sanpham.TenSanPham, chitietdonhang.SoLuong, chitietdonhang.GiaTaiThoiDiem "
-                + "from chitietdonhang JOIN sanpham on chitietdonhang.MaSanPham = sanpham.MaSanPham "
-                + "WHERE MaDonHang = " + maDonHang;
+        String sql = "SELECT sanpham.TenSanPham, chitiethoadon.SoLuong, chitiethoadon.GiaTaiThoiDiem "
+                + "from chitiethoadon JOIN sanpham on chitiethoadon.MaSanPham = sanpham.MaSanPham "
+                + "WHERE MaHoaDon = " + maDonHang;
         rs = st.executeQuery(sql);
         return rs;
     }
@@ -40,14 +40,14 @@ public class DonHangConnect {
     public ResultSet getDataTK(String ma) throws SQLException{
         ResultSet rs = null;
         Statement st = con.createStatement();
-        String sql = "select * from donhang where " + ma;
+        String sql = "select * from hoadon where " + ma;
         rs = st.executeQuery(sql);
         return rs;
     }
     
     public int themDonHang(String maNV, String maKH, String tongTien) throws SQLException{
         Statement st = con.createStatement();
-        String sql = "INSERT INTO `donhang`(`MaKhachHang`, `MaNhanVien`, `NgayDatHang`, `TongTien`) VALUES ('"+maKH+"','"+maNV+"', CURDATE(), "+tongTien+")";
+        String sql = "INSERT INTO `hoadon`(`MaKhachHang`, `MaNhanVien`, `NgayDatHang`, `TongTien`) VALUES ('"+maKH+"','"+maNV+"', CURDATE(), "+tongTien+")";
 //        st.executeUpdate(sql);
         st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
         ResultSet rs = st.getGeneratedKeys();

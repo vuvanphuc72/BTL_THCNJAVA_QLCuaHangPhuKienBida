@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class fTaoDonHang extends javax.swing.JFrame {
@@ -148,7 +149,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
         jLabel4.setText("Mã nhân viên");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel5.setText("TẠO ĐƠN HÀNG");
+        jLabel5.setText("TẠO HOÁ ĐƠN");
 
         jLabel6.setText("Giá");
 
@@ -349,12 +350,17 @@ public class fTaoDonHang extends javax.swing.JFrame {
         String maKH = tfMaKhachHang.getText();
         String tongTien = tfTongTien.getText();
         
+        if(maNV.isEmpty()|| maNV.equals("") || maKH.isEmpty() || maKH.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         try {
             DonHangConnect pt = new DonHangConnect();
             int maDonHangMoi = pt.themDonHang(maNV, maKH, tongTien);
 //            System.out.println("Mã đơn hàng vừa tạo là: " + maDonHangMoi);
             
-            String ctdh = "INSERT INTO `chitietdonhang`(`MaDonHang`, `MaSanPham`, `SoLuong`, `GiaTaiThoiDiem`) VALUES ";
+            String ctdh = "INSERT INTO `chitiethoadon`(`MaHoaDon`, `MaSanPham`, `SoLuong`, `GiaTaiThoiDiem`) VALUES ";
             boolean first = true;
             for(SanPham sp : ds){
                 if(!first) ctdh += ", ";
@@ -363,6 +369,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
             }
             pt.themCTDH(ctdh);
 //            System.out.println(ctdh);
+            JOptionPane.showMessageDialog(null, "Thêm hoá đơn thành công!");
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fTaoDonHang.class.getName()).log(Level.SEVERE, null, ex);

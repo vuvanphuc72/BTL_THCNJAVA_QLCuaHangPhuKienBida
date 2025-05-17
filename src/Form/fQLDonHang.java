@@ -47,7 +47,7 @@ public class fQLDonHang extends javax.swing.JFrame {
             ResultSet rs = pt.getData();
             int dem = 0;
             while(rs.next()){
-                tbDonHang.setValueAt(rs.getString("MaDonHang"), dem, 0);
+                tbDonHang.setValueAt(rs.getString("MaHoaDon"), dem, 0);
                 tbDonHang.setValueAt(rs.getString("MaKhachHang"), dem, 1);
                 tbDonHang.setValueAt(rs.getString("MaNhanVien"), dem, 2);
                 tbDonHang.setValueAt(rs.getString("NgayDatHang"), dem, 3);
@@ -357,7 +357,7 @@ public class fQLDonHang extends javax.swing.JFrame {
         model.setRowCount(50);
         String ma = "all";
         if (cbTimKiem.getSelectedIndex() == 0){
-            ma = "MaDonHang = " + tfTimKiem.getText(); 
+            ma = "MaHoaDon = " + tfTimKiem.getText(); 
         }
         else if(cbTimKiem.getSelectedIndex() == 1){
             ma = "MaNhanVien = " + tfTimKiem.getText(); 
@@ -378,7 +378,7 @@ public class fQLDonHang extends javax.swing.JFrame {
             
             int dem = 0;
             while(rs.next()){
-                tbDonHang.setValueAt(rs.getString("MaDonHang"), dem, 0);
+                tbDonHang.setValueAt(rs.getString("MaHoaDon"), dem, 0);
                 tbDonHang.setValueAt(rs.getString("MaKhachHang"), dem, 1);
                 tbDonHang.setValueAt(rs.getString("MaNhanVien"), dem, 2);
                 tbDonHang.setValueAt(rs.getString("NgayDatHang"), dem, 3);
@@ -396,6 +396,13 @@ public class fQLDonHang extends javax.swing.JFrame {
 //        this.setVisible(false);
         fTaoDonHang fql = new fTaoDonHang();
         fql.setVisible(true);
+        // Thêm sự kiện khi đóng cửa sổ
+        fql.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                loadTable();
+            }
+        });
     }//GEN-LAST:event_btTaoDonActionPerformed
 
     public static void main(String args[]) {

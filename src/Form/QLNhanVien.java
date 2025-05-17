@@ -364,7 +364,7 @@ public class QLNhanVien extends javax.swing.JFrame {
     private void btSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaNVActionPerformed
         String hoTen = tfHoTenNV.getText();
         String sdt = tfSDTNV.getText();
-        String email = tfHoTenNV.getText();
+        String email = tfEmailNV.getText();
         String mk = tfMatKhau.getText();
 
         Object value = spdNgayTuyenDung.getValue();
