@@ -43,6 +43,7 @@ public class fQLSanPham extends javax.swing.JFrame {
             while(rs.next()){
                 cbLoaiSanPham.addItem(rs.getString("TenLoaiSanPham"));
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(fQLSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -67,6 +68,7 @@ public class fQLSanPham extends javax.swing.JFrame {
                 tbSanPham.setValueAt(rs.getString("TenLoaiSanPham"), dem, 3);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(fQLSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -177,6 +179,11 @@ public class fQLSanPham extends javax.swing.JFrame {
         jLabel3.setText("Giá");
 
         btThemLSP.setText("Thêm loại SP");
+        btThemLSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemLSPActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Loại sản phẩm");
 
@@ -188,6 +195,11 @@ public class fQLSanPham extends javax.swing.JFrame {
         });
 
         btXoaLSP.setText("Xoá loại SP");
+        btXoaLSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaLSPActionPerformed(evt);
+            }
+        });
 
         cbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -313,6 +325,7 @@ public class fQLSanPham extends javax.swing.JFrame {
             String sql = "INSERT INTO `sanpham`(`TenSanPham`, `GiaDonVi`, `SoLuongTon`, `MaLoaiSanPham`) VALUES ('"+ten+"', "+gia+", 999, "+maLoai+")";
             pt.updateQuery(sql);
             loadSanPham();
+            if(pt != null) pt.Close();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,6 +361,7 @@ public class fQLSanPham extends javax.swing.JFrame {
             String sql = "UPDATE `sanpham` SET `TenSanPham`='"+ten+"',`GiaDonVi`= "+gia+",`MaLoaiSanPham`= "+maLoai+" WHERE `MaSanPham`= "+ma+"";
             pt.updateQuery(sql);
             loadSanPham();
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -357,11 +371,47 @@ public class fQLSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btSuaActionPerformed
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
-        // TODO add your handling code here:
+        String TenSP = tfTenSanPham.getText();
+        if(TenSP.isEmpty() || TenSP.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn/nhập sản phẩm cần xoá!");
+            return;
+        }
+        int c = JOptionPane.showConfirmDialog(null, "Xoá sản phẩm '" +TenSP+ "' sẽ xoá hết các hoá đơn liên quan!\nBạn vẫn muốn thực hiện?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(c != JOptionPane.YES_OPTION)
+            return;
+        try {
+            Connector pt = new Connector();
+            String sql = "Select * from sanpham where TenSanPham = '"+TenSP+"'";
+            ResultSet rs = pt.getDataBySQL(sql);
+            String ma = "";
+            while(rs.next()){
+                ma = rs.getString("MaSanPham");
+            }
+            
+            if(ma.isEmpty() || ma.equals("")){
+                JOptionPane.showMessageDialog(null, "'"+TenSP+"' không tồn tại!");
+                return;
+            }
+            
+            String sqlXoa = "DELETE FROM `sanpham` WHERE TenSanPham = '"+TenSP+"'";
+            pt.updateQuery(sqlXoa);
+            loadSanPham();
+            JOptionPane.showMessageDialog(null, "Đã xoá sản phẩm '"+TenSP+"'");
+            
+            if(pt != null) pt.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
-        
+        int kq = JOptionPane.showConfirmDialog(null, "Thoát ứng dụng", "Thông báo", JOptionPane.YES_NO_OPTION , JOptionPane.QUESTION_MESSAGE);
+        if(kq == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
     }//GEN-LAST:event_btThoatActionPerformed
 
     private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
@@ -394,12 +444,64 @@ public class fQLSanPham extends javax.swing.JFrame {
                 tbSanPham.setValueAt(rs.getString("TenLoaiSanPham"), dem, 3);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btTimKiemActionPerformed
+
+    private void btThemLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemLSPActionPerformed
+        
+        ThemLoaiSP fql = new ThemLoaiSP();
+        fql.setVisible(true);
+        // Thêm sự kiện khi đóng cửa sổ
+        fql.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                loadLoaiSP();
+            }
+        });
+    }//GEN-LAST:event_btThemLSPActionPerformed
+
+    private void btXoaLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaLSPActionPerformed
+        String loai = cbLoaiSanPham.getSelectedItem().toString();
+        if(loai.isEmpty() || loai.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn loại sản phẩm cần xoá!");
+            return;
+        }
+        int c = JOptionPane.showConfirmDialog(null, "Xoá loại sản phẩm '" +loai+ "' sẽ xoá hết các sản phẩm và hoá đơn liên quan!\nBạn vẫn muốn thực hiện?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(c != JOptionPane.YES_OPTION)
+            return;
+        
+        try {
+            Connector pt = new Connector();
+            String sql = "Select * from loaisanpham where TenLoaiSanPham = '"+loai+"'";
+            ResultSet rs = pt.getDataBySQL(sql);
+            String ma = "";
+            while(rs.next()){
+                ma = rs.getString("MaLoaiSanPham");
+            }
+            
+            if(ma.isEmpty() || ma.equals("")){
+                JOptionPane.showMessageDialog(null, "'"+loai+"' không tồn tại!");
+                return;
+            }
+            
+            String sqlXoa = "DELETE FROM `loaisanpham` WHERE TenLoaiSanPham = '"+loai+"'";
+            pt.updateQuery(sqlXoa);
+            loadLoaiSP();
+            loadSanPham();
+            JOptionPane.showMessageDialog(null, "Đã xoá loại sản phẩm '"+loai+"'");
+            if(pt != null) pt.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btXoaLSPActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

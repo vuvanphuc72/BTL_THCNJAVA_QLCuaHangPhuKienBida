@@ -51,6 +51,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
                 tbSanPham.setValueAt(rs.getString("SoLuongTon"), dem, 3);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -370,6 +371,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
             pt.themCTDH(ctdh);
 //            System.out.println(ctdh);
             JOptionPane.showMessageDialog(null, "Thêm hoá đơn thành công!");
+            if(pt != null) pt.Close();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fTaoDonHang.class.getName()).log(Level.SEVERE, null, ex);

@@ -53,6 +53,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
                 tbKhachHang.setValueAt(rs.getString("DiaChi"), dem, 4);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -273,7 +274,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
             pt.updateQuery(sql);
             JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công!");
             loadKhachHang();
-            
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -306,6 +307,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần sửa thông tin!");
                 }
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -314,9 +316,39 @@ public class fQLKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_btSuaActionPerformed
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
-        int i = tbKhachHang.getSelectedRow();
-        if(tbKhachHang.getValueAt(i,0) != null && !tbKhachHang.getValueAt(i,0).toString().equals("")){
-            String sdtTruoc = tbKhachHang.getValueAt(i, 2).toString();
+        String SDT = tfSDT.getText();
+        if(SDT.isEmpty() || SDT.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn/nhập nhân viên cần xoá!");
+            return;
+        }
+        
+        try {
+            Connector pt = new Connector();
+            String sql = "Select * from khachhang where SoDienThoai = '"+SDT+"'";
+            ResultSet rs = pt.getDataBySQL(sql);
+            String ten = "";
+            while(rs.next()){
+                ten = rs.getString("HoTen");
+            }
+            
+            if(ten.isEmpty() || ten.equals("")){
+                JOptionPane.showMessageDialog(null, "Khách hàng với SDT '"+SDT+"' không tồn tại!");
+                return;
+            }
+            
+            int c = JOptionPane.showConfirmDialog(null, "Xoá khách hàng '" +ten+ "' sẽ xoá hết các hoá đơn liên quan!\nBạn vẫn muốn thực hiện?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
+            
+            String sqlXoa = "DELETE FROM `khachhang` WHERE SoDienThoai = '"+SDT+"'";
+            pt.updateQuery(sqlXoa);
+            loadKhachHang();
+            JOptionPane.showMessageDialog(null, "Đã xoá khách hàng '"+ten+"'");
+            if(pt != null)pt.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btXoaActionPerformed
 
@@ -354,7 +386,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
                 tbKhachHang.setValueAt(rs.getString("DiaChi"), dem, 4);
                 dem++;
             }
-            
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

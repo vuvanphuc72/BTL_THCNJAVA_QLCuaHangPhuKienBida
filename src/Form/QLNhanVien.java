@@ -55,6 +55,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                 tbNhanVien.setValueAt(rs.getString("matkhau"), dem, 5);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -194,6 +195,11 @@ public class QLNhanVien extends javax.swing.JFrame {
         spdNgayTuyenDung.setEditor(new javax.swing.JSpinner.DateEditor(spdNgayTuyenDung, "yyyy-MM-dd"));
 
         btXoaNV.setText("Xoá");
+        btXoaNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaNVActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Họ tên");
 
@@ -354,6 +360,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                 tbNhanVien.setValueAt(rs.getString("matkhau"), dem, 5);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -392,6 +399,7 @@ public class QLNhanVien extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần sửa thông tin!");
                 }
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -426,6 +434,7 @@ public class QLNhanVien extends javax.swing.JFrame {
             pt.updateQuery(sql);
             JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!");
             loadNhanVien();
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -461,6 +470,43 @@ public class QLNhanVien extends javax.swing.JFrame {
             clearTF();
         }
     }//GEN-LAST:event_tbNhanVienMouseClicked
+
+    private void btXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaNVActionPerformed
+        String SDT = tfSDTNV.getText();
+        if(SDT.isEmpty() || SDT.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn/nhập nhân viên cần xoá!");
+            return;
+        }
+        
+        try {
+            Connector pt = new Connector();
+            String sql = "Select * from nhanvien where SoDienThoai = '"+SDT+"'";
+            ResultSet rs = pt.getDataBySQL(sql);
+            String ten = "";
+            while(rs.next()){
+                ten = rs.getString("HoTen");
+            }
+            
+            if(ten.isEmpty() || ten.equals("")){
+                JOptionPane.showMessageDialog(null, "Nhân viên với SDT '"+SDT+"' không tồn tại!");
+                return;
+            }
+            
+            int c = JOptionPane.showConfirmDialog(null, "Xoá nhân viên '" +ten+ "' sẽ xoá hết các hoá đơn liên quan!\nBạn vẫn muốn thực hiện?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
+            
+            String sqlXoa = "DELETE FROM `nhanvien` WHERE SoDienThoai = '"+SDT+"'";
+            pt.updateQuery(sqlXoa);
+            loadNhanVien();
+            JOptionPane.showMessageDialog(null, "Đã xoá nhân viên '"+ten+"'");
+            if(pt != null)pt.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QLNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btXoaNVActionPerformed
 
     public void clearTF(){
         tfHoTenNV.setText("");

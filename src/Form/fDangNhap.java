@@ -111,6 +111,7 @@ public class fDangNhap extends javax.swing.JFrame {
             Connector pt = new Connector();
             String sql = "select * from nhanvien where SoDienThoai = '"+tk+"' and matkhau = '"+mk+"'";
             ResultSet rs = pt.getDataBySQL(sql);
+            pt.Close();
             if(rs.next()){
                 return true;
             }else{

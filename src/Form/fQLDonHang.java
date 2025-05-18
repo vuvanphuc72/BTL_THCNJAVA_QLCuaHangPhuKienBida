@@ -1,6 +1,7 @@
 
 package Form;
 
+import Model.Connector;
 import Model.DonHangConnect;
 import Model.NhapSo;
 import java.sql.*;
@@ -54,6 +55,7 @@ public class fQLDonHang extends javax.swing.JFrame {
                 tbDonHang.setValueAt(rs.getString("TongTien"), dem, 4);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -125,6 +127,11 @@ public class fQLDonHang extends javax.swing.JFrame {
         jLabel5.setText("Tổng tiền");
 
         btXoaDon.setText("Xoá đơn hàng");
+        btXoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaDonActionPerformed(evt);
+            }
+        });
 
         tbChiTietDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -311,6 +318,7 @@ public class fQLDonHang extends javax.swing.JFrame {
                 tbChiTietDonHang.setValueAt(rs.getString("GiaTaiThoiDiem"), i, 1);
                 i++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -385,6 +393,7 @@ public class fQLDonHang extends javax.swing.JFrame {
                 tbDonHang.setValueAt(rs.getString("TongTien"), dem, 4);
                 dem++;
             }
+            if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -404,6 +413,32 @@ public class fQLDonHang extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btTaoDonActionPerformed
+
+    private void btXoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaDonActionPerformed
+        String maHD = tfMaDonHang.getText();
+        if(maHD.isEmpty() || maHD.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mã hoá đơn cần xoá!");
+            return;
+        }
+        try {
+            Connector pt = new Connector();
+            String sql1 = "DELETE FROM `chitiethoadon` WHERE MaHoaDon = " +maHD;
+            String sql2 = "DELETE FROM `hoadon` WHERE MaHoaDon = " +maHD;
+            int c = JOptionPane.showConfirmDialog(null, "Bạn muốn xoá hoá đơn " + maHD, "Cảnh báo" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
+            pt.updateQuery(sql1);
+            pt.updateQuery(sql2);
+            
+            JOptionPane.showMessageDialog(null, "Đã xoá hoá đơn " + maHD);
+            loadTable();
+            if(pt != null) pt.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fQLDonHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btXoaDonActionPerformed
 
     public static void main(String args[]) {
 
