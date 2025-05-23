@@ -12,6 +12,7 @@ public class fDangNhap extends javax.swing.JFrame {
 
     public fDangNhap() {
         initComponents();
+        setResizable(false); // Cấm resize
         this.setLocationRelativeTo(null);
     }
 

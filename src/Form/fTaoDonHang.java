@@ -3,6 +3,7 @@ package Form;
 
 import Model.DonHangConnect;
 import Model.SanPham;
+import java.awt.Color;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,8 +19,10 @@ public class fTaoDonHang extends javax.swing.JFrame {
     public fTaoDonHang() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setResizable(false); // Cấm resize
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loadSanPham("sanpham");
+        setColor();
     }
     
     public fTaoDonHang(JFrame fQLDH) {
@@ -34,6 +37,38 @@ public class fTaoDonHang extends javax.swing.JFrame {
         }
         });
         loadSanPham("sanpham");
+    }
+    
+    public void setColor(){
+        tfMaKhachHang.setBackground(new Color(245,255,245));
+        tfMaNhanVien.setBackground(new Color(245,255,245));
+        tfTongTien.setBackground(new Color(245,255,245));
+        tfTenSanPhamTK.setBackground(new Color(245,255,245));
+        tfTenSanPham.setBackground(new Color(245,255,245));
+        tfGiaSanPham.setBackground(new Color(245,255,245));
+        
+        btTaoDon.setBackground(new Color(102,205,170));
+        btTaoDon.setForeground(Color.black);
+        btThem.setBackground(new Color(102,205,170));
+        btThem.setForeground(Color.black);
+        btXoa.setBackground(new Color(102,205,170));
+        btXoa.setForeground(Color.black);
+        btTimKiemSanPham.setBackground(new Color(102,205,170));
+        btTimKiemSanPham.setForeground(Color.black);
+        
+        this.getContentPane().setBackground(new Color(240,255,240));
+        this.setForeground(Color.BLACK);
+        
+        tbSanPhamDaThem.setBackground(new Color(240,255,240));
+        tbSanPhamDaThem.setForeground(Color.BLACK);
+        tbSanPham.setBackground(new Color(240,255,240));
+        tbSanPham.setForeground(Color.BLACK);
+        
+        tbSanPham.getTableHeader().setBackground(new Color(0,139,139)); // Xanh dương
+        tbSanPham.getTableHeader().setForeground(Color.white); // Chữ trắng
+        
+        tbSanPhamDaThem.getTableHeader().setBackground(new Color(0,139,139)); // Xanh dương
+        tbSanPhamDaThem.getTableHeader().setForeground(Color.white); // Chữ trắng
     }
 
     public void loadSanPham(String tenBang){
@@ -120,7 +155,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
             }
         });
 
-        btTimKiemSanPham.setText("Tìm kiếm theo tên SP");
+        btTimKiemSanPham.setText("Tìm kiếm theo tên");
         btTimKiemSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btTimKiemSanPhamActionPerformed(evt);
@@ -149,7 +184,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
 
         jLabel4.setText("Mã nhân viên");
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel5.setText("TẠO HOÁ ĐƠN");
 
         jLabel6.setText("Giá");

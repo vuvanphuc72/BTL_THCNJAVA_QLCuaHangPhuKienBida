@@ -2,6 +2,7 @@
 package Form;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -13,9 +14,10 @@ public class QuanLyCuaHang2 extends JFrame {
     
     public QuanLyCuaHang2() {
         setTitle("Quản lý cửa hàng phụ kiện bida");
-        setSize(950, 600);
+        setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false); // Cấm resize
         
         JPanel pnlKhachHang = new JPanel();
         fQLKhachHang khForm = new fQLKhachHang();

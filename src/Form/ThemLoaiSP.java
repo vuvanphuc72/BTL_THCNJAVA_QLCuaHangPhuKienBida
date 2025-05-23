@@ -13,6 +13,7 @@ public class ThemLoaiSP extends javax.swing.JFrame {
     public ThemLoaiSP() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setResizable(false); // Cấm resize
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
