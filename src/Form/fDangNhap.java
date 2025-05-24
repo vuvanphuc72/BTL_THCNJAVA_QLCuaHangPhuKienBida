@@ -26,9 +26,9 @@ public class fDangNhap extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btThoat = new javax.swing.JButton();
         tfTaiKhoan = new javax.swing.JTextField();
-        tfMatKhau = new javax.swing.JTextField();
         btDangNhap = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        tfMatKhau2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
@@ -51,8 +51,6 @@ public class fDangNhap extends javax.swing.JFrame {
 
         tfTaiKhoan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        tfMatKhau.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
         btDangNhap.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btDangNhap.setText("Đăng nhập");
         btDangNhap.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +61,8 @@ public class fDangNhap extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         jLabel3.setText("NHÂN VIÊN ĐĂNG NHẬP");
+
+        tfMatKhau2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,12 +75,12 @@ public class fDangNhap extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfMatKhau)
                     .addComponent(tfTaiKhoan)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addComponent(btThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfMatKhau2))
                 .addGap(127, 127, 127))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -99,7 +99,7 @@ public class fDangNhap extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfMatKhau2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btDangNhap)
@@ -119,7 +119,7 @@ public class fDangNhap extends javax.swing.JFrame {
 
     public void setColor(){
         tfTaiKhoan.setBackground(new Color(245,255,245));
-        tfMatKhau.setBackground(new Color(245,255,245));
+        tfMatKhau2.setBackground(new Color(245,255,245));
         
         btDangNhap.setBackground(new Color(102,205,170));
         btDangNhap.setForeground(Color.black);
@@ -135,7 +135,7 @@ public class fDangNhap extends javax.swing.JFrame {
     
     public boolean check(){
         String tk = tfTaiKhoan.getText();
-        String mk = tfMatKhau.getText();
+        String mk = tfMatKhau2.getText();
         try {
             Connector pt = new Connector();
             String sql = "select * from nhanvien where SoDienThoai = '"+tk+"' and matkhau = '"+mk+"'";
@@ -202,7 +202,7 @@ public class fDangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField tfMatKhau;
+    private javax.swing.JPasswordField tfMatKhau2;
     private javax.swing.JTextField tfTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,8 @@ package Form;
 import Model.Connector;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ public class fQLSanPham extends javax.swing.JFrame {
     
     public fQLSanPham() {
         initComponents();
+        setDieuKien();
         this.setLocationRelativeTo(null);
         setResizable(false); // Cấm resize
         loadSanPham();
@@ -45,6 +48,27 @@ public class fQLSanPham extends javax.swing.JFrame {
         });
         loadSanPham();
         loadLoaiSP();
+    }
+    
+    public void setDieuKien(){
+        tfGia.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            String text = tfGia.getText();
+
+            // Cho phép chữ số, backspace, và dấu chấm (.)
+            if (!Character.isDigit(c) && c != '\b' && c != '.') {
+                e.consume();
+            }
+
+            // Không cho nhập nhiều hơn 1 dấu chấm
+            if (c == '.' && text.contains(".")) {
+                e.consume();
+            }
+        }
+    });
+
     }
     
     public void setCoLorForTB(){
@@ -427,6 +451,12 @@ public class fQLSanPham extends javax.swing.JFrame {
         String ten = tfTenSanPham.getText();
         String gia = tfGia.getText();
         String loai = cbLoaiSanPham.getSelectedItem().toString();
+        
+        if(ten.isEmpty()|| ten.equals("") || gia.isEmpty() || gia.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         try {
             
             Connector pt = new Connector();
@@ -439,6 +469,7 @@ public class fQLSanPham extends javax.swing.JFrame {
             if(maLoai == -1) return;
             String sql = "INSERT INTO `sanpham`(`TenSanPham`, `GiaDonVi`, `SoLuongTon`, `MaLoaiSanPham`) VALUES ('"+ten+"', "+gia+", 999, "+maLoai+")";
             pt.updateQuery(sql);
+            JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công!");
             loadSanPham();
             if(pt != null) pt.Close();
             
@@ -454,6 +485,12 @@ public class fQLSanPham extends javax.swing.JFrame {
         String gia = tfGia.getText();
         String loai = cbLoaiSanPham.getSelectedItem().toString();
         String ma = "";
+        
+        if(ten.isEmpty()|| ten.equals("") || gia.isEmpty() || gia.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         try {
             Connector pt = new Connector();
             int maLoai = -1;

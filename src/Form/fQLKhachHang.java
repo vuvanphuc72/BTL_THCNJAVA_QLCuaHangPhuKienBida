@@ -358,6 +358,12 @@ public class fQLKhachHang extends javax.swing.JFrame {
         String email = tfEmail.getText();
         String diaChi = tfDiaChi.getText();
         
+        if(hoten.isEmpty()|| hoten.equals("") || sdt.isEmpty() || sdt.equals("") ||
+                email.isEmpty()|| email.equals("") || diaChi.isEmpty() || diaChi.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         try {
             Connector pt = new Connector();
             int maKH = -1;
@@ -387,6 +393,13 @@ public class fQLKhachHang extends javax.swing.JFrame {
         String sdt = tfSDT.getText();
         String email = tfEmail.getText();
         String diaChi = tfDiaChi.getText();
+        
+        if(hoten.isEmpty()|| hoten.equals("") || sdt.isEmpty() || sdt.equals("") ||
+                email.isEmpty()|| email.equals("") || diaChi.isEmpty() || diaChi.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         try {
             Connector pt = new Connector();
             int i = tbKhachHang.getSelectedRow();

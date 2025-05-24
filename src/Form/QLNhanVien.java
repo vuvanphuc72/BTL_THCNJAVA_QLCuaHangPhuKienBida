@@ -483,6 +483,12 @@ public class QLNhanVien extends javax.swing.JFrame {
         String email = tfEmailNV.getText();
         String mk = tfMatKhau.getText();
 
+        if(hoTen.isEmpty()|| hoTen.equals("") || sdt.isEmpty() || sdt.equals("") ||
+                email.isEmpty()|| email.equals("") || mk.isEmpty() || mk.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         Object value = spdNgayTuyenDung.getValue();
         java.util.Date utilDate = (Date) value;
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -522,6 +528,12 @@ public class QLNhanVien extends javax.swing.JFrame {
         String email = tfHoTenNV.getText();
         String mk = tfMatKhau.getText();
 
+        if(hoTen.isEmpty()|| hoTen.equals("") || sdt.isEmpty() || sdt.equals("") ||
+                email.isEmpty()|| email.equals("") || mk.isEmpty() || mk.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
         Object value = spdNgayTuyenDung.getValue();
         java.util.Date utilDate = (Date) value;
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());

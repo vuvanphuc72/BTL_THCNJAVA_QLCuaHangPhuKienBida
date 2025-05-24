@@ -1,6 +1,7 @@
 
 package Form;
 
+import Model.Connector;
 import Model.DonHangConnect;
 import Model.SanPham;
 import java.awt.Color;
@@ -432,6 +433,35 @@ public class fTaoDonHang extends javax.swing.JFrame {
         
         if(maNV.isEmpty()|| maNV.equals("") || maKH.isEmpty() || maKH.equals("")){
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        
+        boolean c = false;
+        
+        try {
+            Connector check = new Connector();
+            ResultSet rs = check.getDataBySQL("select * from khachhang where MaKhachHang = '"+maKH+"'");
+            ResultSet rs2 = check.getDataBySQL("select * from nhanvien where MaNhanVien = '"+maNV+"'");
+            if(!rs.next() || !rs2.next()){
+                JOptionPane.showMessageDialog(null, "Mã nhân viên hoặc khách hàng không tồn tại!");
+                c = true;
+            }
+            if(check != null) check.Close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fTaoDonHang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(fTaoDonHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(c) return;
+        
+        if(ds == null){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm!");
+            return;
+        }
+        
+        if(tongTien.isEmpty()|| tongTien.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm!");
             return;
         }
         
