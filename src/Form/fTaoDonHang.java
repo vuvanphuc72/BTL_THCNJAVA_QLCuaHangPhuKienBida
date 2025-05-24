@@ -4,13 +4,21 @@ package Form;
 import Model.DonHangConnect;
 import Model.SanPham;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class fTaoDonHang extends javax.swing.JFrame {
 
@@ -23,6 +31,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loadSanPham("sanpham");
         setColor();
+        setCoLorForTB();
     }
     
     public fTaoDonHang(JFrame fQLDH) {
@@ -37,6 +46,40 @@ public class fTaoDonHang extends javax.swing.JFrame {
         }
         });
         loadSanPham("sanpham");
+    }
+    
+    public void setCoLorForTB(){
+        
+        JTableHeader header = tbSanPhamDaThem.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+            label.setBackground(new Color(0, 139, 139));
+            label.setForeground(Color.WHITE);
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            return label;
+        }
+        });
+        
+        JTableHeader header2 = tbSanPham.getTableHeader();
+        header2.setDefaultRenderer(new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+            label.setBackground(new Color(0, 139, 139));
+            label.setForeground(Color.WHITE);
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            return label;
+        }
+        });
+
     }
     
     public void setColor(){
@@ -185,6 +228,7 @@ public class fTaoDonHang extends javax.swing.JFrame {
         jLabel4.setText("Mã nhân viên");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(40, 133, 81));
         jLabel5.setText("TẠO HOÁ ĐƠN");
 
         jLabel6.setText("Giá");

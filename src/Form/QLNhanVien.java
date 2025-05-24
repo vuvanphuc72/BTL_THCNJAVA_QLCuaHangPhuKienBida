@@ -4,26 +4,70 @@ package Form;
 import java.util.Date;
 import Model.Connector;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class QLNhanVien extends javax.swing.JFrame {
 
+    
+    
     private JFrame fQL;
 
     public QLNhanVien() {
         initComponents();
-        setResizable(false); // Cấm resize
         setColor();
+        setCoLorForTB();
+        setResizable(false); // Cấm resize
         loadNhanVien();
+    }
+    
+    public void setCoLorForTB(){
+        cbTimKiemNhanVien.setRenderer(new DefaultListCellRenderer() {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                      boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setBackground(new Color(240,255,240)); // màu nền
+            label.setForeground(Color.black); // màu chữ
+            label.setOpaque(true);
+            return label;
+        }
+        });
+        
+        JTableHeader header = tbNhanVien.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+            label.setBackground(new Color(0, 139, 139));
+            label.setForeground(Color.WHITE);
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            return label;
+        }
+        });
+        
+        cbTimKiemNhanVien.setBackground(new Color(0, 139, 139)); // màu nền dropdown
+        cbTimKiemNhanVien.setForeground(Color.black); // màu chữ dropdown
+
     }
     
     public void setColor(){
@@ -185,6 +229,7 @@ public class QLNhanVien extends javax.swing.JFrame {
         setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(40, 133, 81));
         jLabel7.setText("QUẢN LÝ NHÂN VIÊN");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -192,7 +237,7 @@ public class QLNhanVien extends javax.swing.JFrame {
         tfHoTenNV.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         cbTimKiemNhanVien.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        cbTimKiemNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên nhân viên", "Số điện thoại", "Email" }));
+        cbTimKiemNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên NV", "SDT", "Email" }));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Ngày tuyển dụng");

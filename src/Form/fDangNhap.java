@@ -2,6 +2,7 @@
 package Form;
 
 import Model.Connector;
+import java.awt.Color;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ public class fDangNhap extends javax.swing.JFrame {
         initComponents();
         setResizable(false); // Cấm resize
         this.setLocationRelativeTo(null);
+        setColor();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,10 +33,15 @@ public class fDangNhap extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(40, 133, 81));
         jLabel1.setText("Tài khoản (SDT)");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(40, 133, 81));
         jLabel2.setText("Mật khẩu");
 
+        btThoat.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -42,6 +49,11 @@ public class fDangNhap extends javax.swing.JFrame {
             }
         });
 
+        tfTaiKhoan.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        tfMatKhau.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        btDangNhap.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btDangNhap.setText("Đăng nhập");
         btDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,7 +61,7 @@ public class fDangNhap extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         jLabel3.setText("NHÂN VIÊN ĐĂNG NHẬP");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -59,28 +71,28 @@ public class fDangNhap extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfMatKhau)
                     .addComponent(tfTaiKhoan)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addComponent(btDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(btThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(127, 127, 127))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(111, 111, 111))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -92,7 +104,7 @@ public class fDangNhap extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btDangNhap)
                     .addComponent(btThoat))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,6 +117,22 @@ public class fDangNhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btThoatActionPerformed
 
+    public void setColor(){
+        tfTaiKhoan.setBackground(new Color(245,255,245));
+        tfMatKhau.setBackground(new Color(245,255,245));
+        
+        btDangNhap.setBackground(new Color(102,205,170));
+        btDangNhap.setForeground(Color.black);
+        btThoat.setBackground(new Color(102,205,170));
+        btThoat.setForeground(Color.black);
+
+        jLabel3.setForeground(new Color(40,133,81));
+        
+        this.getContentPane().setBackground(new Color(240,255,240));
+        this.setForeground(Color.BLACK);
+
+    }
+    
     public boolean check(){
         String tk = tfTaiKhoan.getText();
         String mk = tfMatKhau.getText();

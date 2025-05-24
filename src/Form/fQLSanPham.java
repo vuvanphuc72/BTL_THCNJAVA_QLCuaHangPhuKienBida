@@ -3,12 +3,20 @@ package Form;
 
 import Model.Connector;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class fQLSanPham extends javax.swing.JFrame {
 
@@ -21,6 +29,7 @@ public class fQLSanPham extends javax.swing.JFrame {
         loadSanPham();
         loadLoaiSP();
         setColor();
+        setCoLorForTB();
     }
     
     public fQLSanPham(JFrame fQL) {
@@ -36,6 +45,53 @@ public class fQLSanPham extends javax.swing.JFrame {
         });
         loadSanPham();
         loadLoaiSP();
+    }
+    
+    public void setCoLorForTB(){
+        cbTimKiem.setRenderer(new DefaultListCellRenderer() {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                      boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setBackground(new Color(240,255,240)); // màu nền
+            label.setForeground(Color.black); // màu chữ
+            label.setOpaque(true);
+            return label;
+        }
+        });
+        
+        cbLoaiSanPham.setRenderer(new DefaultListCellRenderer() {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                      boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setBackground(new Color(240,255,240)); // màu nền
+            label.setForeground(Color.black); // màu chữ
+            label.setOpaque(true);
+            return label;
+        }
+        });
+        
+        JTableHeader header = tbSanPham.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+            label.setBackground(new Color(0, 139, 139));
+            label.setForeground(Color.WHITE);
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            return label;
+        }
+        });
+        
+        cbTimKiem.setBackground(new Color(0, 139, 139)); // màu nền dropdown
+        cbTimKiem.setForeground(Color.black); // màu chữ dropdown
+        cbLoaiSanPham.setBackground(new Color(0, 139, 139)); // màu nền dropdown
+        cbLoaiSanPham.setForeground(Color.black); // màu chữ dropdown
+
     }
     
     public void setColor(){
@@ -162,6 +218,7 @@ public class fQLSanPham extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(40, 133, 81));
         jLabel1.setText("QUẢN LÝ SẢN PHẨM");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
