@@ -50,7 +50,9 @@ public class ThemLoaiSP extends javax.swing.JFrame {
         tfThemLSP.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         btThemLoaiSP.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btThemLoaiSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libraries/icon/importLSP.png"))); // NOI18N
         btThemLoaiSP.setText("Thêm");
+        btThemLoaiSP.setIconTextGap(12);
         btThemLoaiSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btThemLoaiSPActionPerformed(evt);
