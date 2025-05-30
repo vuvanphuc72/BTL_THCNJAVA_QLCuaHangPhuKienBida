@@ -185,7 +185,7 @@ public class fQLDonHang extends javax.swing.JFrame {
     public void loadTable(){
         DefaultTableModel model = (DefaultTableModel) tbDonHang.getModel();
         model.setRowCount(0);
-        model.setRowCount(50);
+        model.setRowCount(200);
         try {
             DonHangConnect pt = new DonHangConnect();
             ResultSet rs = pt.getData();

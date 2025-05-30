@@ -116,7 +116,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
     public void loadKhachHang(){
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
-        model.setRowCount(50);
+        model.setRowCount(200);
         try {
             Connector pt = new Connector();
             ResultSet rs = pt.getData("khachhang");
@@ -327,7 +327,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
             } 
             String sql = "INSERT INTO `khachhang`(`HoTen`, `SoDienThoai`, `Email`, `DiaChi`) VALUES ('"+hoten+"','"+sdt+"','"+email+"','"+diaChi+"')";
             pt.updateQuery(sql);
-            JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công!");
+            JOptionPane.showMessageDialog(null, "Thêm khách hàng '"+hoten+"' thành công!");
             loadKhachHang();
             if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {
@@ -348,6 +348,10 @@ public class fQLKhachHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
+        
+        int c = JOptionPane.showConfirmDialog(null, "Bạn muốn thay đổi thông tin khách hàng thành '" +hoten+" - "+sdt+" - "+email+" - "+diaChi+ "'?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
         
         try {
             Connector pt = new Connector();
@@ -417,7 +421,7 @@ public class fQLKhachHang extends javax.swing.JFrame {
     private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
-        model.setRowCount(50);
+        model.setRowCount(200);
         String ma = "1";
         if (cbTimKiem.getSelectedIndex() == 0){
             ma = "HoTen LIKE '%" + tfTimKiem.getText() + "%'"; 

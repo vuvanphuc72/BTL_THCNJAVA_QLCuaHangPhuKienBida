@@ -178,8 +178,9 @@ public class fDangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Tài khoản/mật khẩu nhân viên không đúng!");
             return;
         }
+        String tk = tfTaiKhoan.getText();
         this.setVisible(false);
-        QuanLyCuaHang2 fql = new QuanLyCuaHang2();
+        QuanLyCuaHang2 fql = new QuanLyCuaHang2(tk);
         fql.setVisible(true);
     }//GEN-LAST:event_btDangNhapActionPerformed
 

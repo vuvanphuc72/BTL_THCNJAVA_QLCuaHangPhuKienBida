@@ -122,7 +122,7 @@ public class QLNhanVien extends javax.swing.JFrame {
     public void loadNhanVien(){
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
-        model.setRowCount(50);
+        model.setRowCount(200);
         try {
             Connector pt = new Connector();
             ResultSet rs = pt.getData("nhanvien");
@@ -377,7 +377,7 @@ public class QLNhanVien extends javax.swing.JFrame {
     private void btTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemNVActionPerformed
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
-        model.setRowCount(50);
+        model.setRowCount(200);
         String ma = "1";
         if (cbTimKiemNhanVien.getSelectedIndex() == 0){
             ma = "HoTen LIKE '%" + tfTimKiemNhanVien.getText() + "%'";
@@ -428,6 +428,10 @@ public class QLNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
+        
+        int c = JOptionPane.showConfirmDialog(null, "Bạn muốn thay đổi thông tin nhân viên thành '" +hoTen+" - "+sdt+" - "+email+" - "+mk+ "'?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
         
         Object value = spdNgayTuyenDung.getValue();
         java.util.Date utilDate = (Date) value;
@@ -493,7 +497,7 @@ public class QLNhanVien extends javax.swing.JFrame {
             }
             String sql = "INSERT INTO `nhanvien`(`HoTen`, `SoDienThoai`, `Email`, `NgayTuyenDung`, `matkhau`) VALUES ('"+hoTen+"','"+sdt+"','"+email+"','"+ngayDat+"','"+mk+"')";
             pt.updateQuery(sql);
-            JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!");
+            JOptionPane.showMessageDialog(null, "Thêm nhân viên '"+hoTen+"' thành công!");
             loadNhanVien();
             if(pt != null) pt.Close();
         } catch (ClassNotFoundException ex) {

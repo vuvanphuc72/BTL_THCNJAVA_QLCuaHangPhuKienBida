@@ -47,7 +47,7 @@ public class ThemLoaiSP extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Nhập loại SP");
 
-        tfThemLSP.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfThemLSP.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btThemLoaiSP.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btThemLoaiSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libraries/icon/importLSP.png"))); // NOI18N

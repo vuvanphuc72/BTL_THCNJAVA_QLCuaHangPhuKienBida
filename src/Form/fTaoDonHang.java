@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -27,6 +28,8 @@ public class fTaoDonHang extends javax.swing.JFrame {
     
     public fTaoDonHang() {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/libraries/icon/8.png"));
+        setIconImage(icon.getImage());
         this.setLocationRelativeTo(null);
         setResizable(false); // Cấm resize
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

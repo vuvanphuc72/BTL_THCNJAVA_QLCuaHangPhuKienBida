@@ -426,7 +426,7 @@ public class fQLSanPham extends javax.swing.JFrame {
             if(maLoai == -1) return;
             String sql = "INSERT INTO `sanpham`(`TenSanPham`, `GiaDonVi`, `SoLuongTon`, `MaLoaiSanPham`) VALUES ('"+ten+"', "+gia+", 999, "+maLoai+")";
             pt.updateQuery(sql);
-            JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công!");
+            JOptionPane.showMessageDialog(null, "Thêm sản phẩm '"+ten+"' thành công!");
             loadSanPham();
             if(pt != null) pt.Close();
             
@@ -447,6 +447,10 @@ public class fQLSanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
+        
+        int c = JOptionPane.showConfirmDialog(null, "Bạn muốn sửa đổi thông tin sản phẩm thành '" +ten+" - "+gia+" - "+loai+ "'?", "Cảnh báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(c != JOptionPane.YES_OPTION)
+                return;
         
         try {
             Connector pt = new Connector();
